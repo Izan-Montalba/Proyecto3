@@ -1,15 +1,11 @@
 <?php
-// Incluimos el archivo donde está la función (ajusta la ruta si es necesario)
 require_once '../config/database.php';
 
 echo "<h2>Probando conexión con Supabase...</h2>";
 
 try {
-    // Llamamos a la función
     $db = conectar();
 
-    // Si llegamos aquí, la conexión técnica funciona. 
-    // Ahora hagamos una mini-consulta para estar 100% seguros.
     $query = $db->query("SELECT current_database(), now();");
     $resultado = $query->fetch(PDO::FETCH_ASSOC);
 
