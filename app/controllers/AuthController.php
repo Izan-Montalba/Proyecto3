@@ -37,7 +37,7 @@ class AuthController
                     exit();
                 } else {
                     $error = "Usuario o contraseña incorrectos";
-                    require_once 'app/views/auth/login.php';
+                    require_once './app/views/auth/login.php';
                 }
             } catch (Exception $e) {
                 // Esto te ayudará a ver si el error es de la base de datos
