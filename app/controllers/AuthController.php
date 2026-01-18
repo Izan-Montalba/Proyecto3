@@ -26,12 +26,18 @@ class AuthController
                 $modelo = new Usuario($db);
                 $usuario = $modelo->buscarPorEmail($email);
 
-                // Comparación directa de texto plano
                 if ($usuario && $password === $usuario['password']) {
+                    
+                    if ($usuario['estado'] === 'pendiente') 
+                    {
+                        $error = "Tu cuenta aún está pendiente de aprobación por el administrador.";
+                        require_once './app/views/login.php';
+                        return; 
+                    }
+
                     $_SESSION['usuario_id'] = $usuario['id'];
                     $_SESSION['rol'] = $usuario['rol'] ?? 'vecino';
 
-                    // Salimos del index.php redirigiendo a archivos de la raíz
                     if ($_SESSION['rol'] === 'admin') {
                         header("Location: admin.php");
                     } else {
