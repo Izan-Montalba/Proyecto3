@@ -1,26 +1,46 @@
-<h1>🛠️ Inventario de Objetos</h1>
-<p>Reserva objetos compartidos por la comunidad.</p>
+<h1>🛠️ Alquiler de Objetos</h1>
+<p>Selecciona un objeto para reservarlo. Se marcará automáticamente como no disponible.</p>
+
+<?php if(isset($_GET['status']) && $_GET['status'] == 'success'): ?>
+    <div style="color: green; margin-bottom: 15px;">¡Reserva realizada correctamente!</div>
+<?php endif; ?>
 
 <div class="card">
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
-            <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
-                <th style="padding: 12px;">Objeto</th>
+            <tr style="text-align: left; border-bottom: 2px solid #eee;">
+                <th style="padding: 12px;">Nombre</th>
+                <th style="padding: 12px;">Descripción</th>
                 <th style="padding: 12px;">Estado</th>
                 <th style="padding: 12px;">Acción</th>
             </tr>
         </thead>
         <tbody>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 12px;">Escalera de aluminio (3m)</td>
-                <td style="padding: 12px;"><span style="color: #10b981;">● Disponible</span></td>
-                <td style="padding: 12px;"><button style="background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer;">Reservar</button></td>
+            <?php foreach($datosObjetos as $obj): ?>
+            <tr style="border-bottom: 1px solid #f9f9f9;">
+                <td style="padding: 12px;"><strong><?= htmlspecialchars($obj['nombre']) ?></strong></td>
+                <td style="padding: 12px;"><?= htmlspecialchars($obj['descripcion']) ?></td>
+                <td style="padding: 12px;">
+                    <?php if($obj['disponible']): ?>
+                        <span style="color: #10b981;">● Disponible</span>
+                    <?php else: ?>
+                        <span style="color: #f87171;">● Prestado</span>
+                    <?php endif; ?>
+                </td>
+                <td style="padding: 12px;">
+                    <?php if($obj['disponible']): ?>
+                        <button style="background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer;"
+                                onclick="window.location.href='home.php?action=alquilar&id=<?= $obj['id'] ?>'">
+                            Alquilar
+                        </button>
+                    <?php else: ?>
+                        <button disabled style="background: #e2e8f0; color: #94a3b8; border: none; padding: 8px 15px; border-radius: 6px;">
+                            No disponible
+                        </button>
+                    <?php endif; ?>
+                </td>
             </tr>
-            <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 12px;">Taladro Percutor</td>
-                <td style="padding: 12px;"><span style="color: #f59e0b;">● En uso</span></td>
-                <td style="padding: 12px;"><button disabled style="background: #e2e8f0; color: #94a3b8; border: none; padding: 5px 12px; border-radius: 6px;">No disponible</button></td>
-            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
