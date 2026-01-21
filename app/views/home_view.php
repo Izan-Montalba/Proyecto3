@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Comunidad</title>
     <link rel="stylesheet" href="public/css/home.css">
+    <link rel="stylesheet" href="public/css/objetos.css">
 </head>
 <body class="pagina-<?= $seccion ?>">
 
