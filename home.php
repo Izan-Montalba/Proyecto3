@@ -1,29 +1,39 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+// home.php
 require_once 'config/database.php';
 require_once 'app/models/Anuncio.php';
-require_once 'app/models/Objeto.php';
+require_once 'app/models/Objeto.php'; 
 
+session_start();
 $db = conectar();
-$modeloObjeto = new Objeto($db);
 
-// LÓGICA PARA ALQUILAR
-if (isset($_GET['action']) && $_GET['action'] === 'alquilar') {
-    $id_obj = $_GET['id'];
-    $id_user = $_SESSION['usuario_id'];
-    
-    if ($modeloObjeto->alquilar($id_obj, $id_user)) {
-        header("Location: home.php?seccion=objetos&status=success");
+// ALQUILER 
+if (isset($_GET['action']) && $_GET['action'] === 'alquilar' && isset($_GET['id'])) {
+    $id_objeto = $_GET['id'];
+    $id_usuario = $_SESSION['usuario_id'];
+
+    $modeloObjeto = new Objeto($db);
+    $resultado = $modeloObjeto->alquilar($id_objeto, $id_usuario);
+
+    if ($resultado) {
+        header("Location: home.php?seccion=objetos&reserva=ok");
     } else {
-        header("Location: home.php?seccion=objetos&status=error");
+        header("Location: home.php?seccion=objetos&reserva=error");
     }
     exit();
 }
 
-// Carga de datos para la vista
 $seccion = $_GET['seccion'] ?? 'tablon';
-if ($seccion === 'objetos') {
-    $datosObjetos = $modeloObjeto->listarTodos();
+
+// Carga de datos según sección
+if ($seccion === 'tablon') {
+    $modelo = new Anuncio($db);
+    $anuncios = $modelo->listarTodos();
+} elseif ($seccion === 'objetos') {
+    $modelo = new Objeto($db);
+    $datosObjetos = $modelo->listarTodos();
 }
 
 require_once 'app/views/home_view.php';
-
