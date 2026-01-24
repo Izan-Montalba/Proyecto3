@@ -11,12 +11,13 @@ class Objeto {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function alquilar($objeto_id, $usuario_id) {
+    public function alquilar($objeto_id, $usuario_id, $fecha_fin) {
         try {
 
             $sqlReserva = "INSERT INTO reservas (objeto_id, usuario_id, fecha_inicio) VALUES (?, ?, NOW())";
+            $sqlReserva = "INSERT INTO reservas (objeto_id, usuario_id, fecha_inicio, fecha_fin) VALUES (?, ?, NOW(), ?)";
             $stmt = $this->db->prepare($sqlReserva);
-            $stmt->execute([$objeto_id, $usuario_id]);
+            $stmt->execute([$objeto_id, $usuario_id, $fecha_fin]);
 
             $sqlUpdate = "UPDATE objetos SET disponible = false WHERE id = ?";
             $stmtUpdate = $this->db->prepare($sqlUpdate);

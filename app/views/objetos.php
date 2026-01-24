@@ -1,5 +1,5 @@
 <h1>🛠️ Alquiler de Objetos</h1>
-<p>Selecciona un objeto para reservarlo. Se marcará automáticamente como no disponible.</p>
+<p>Selecciona un objeto y la fecha de devolución para reservarlo.</p>
 
 <?php if(isset($_GET['status']) && $_GET['status'] == 'success'): ?>
     <div class="alert-success">
@@ -31,10 +31,15 @@
                 </td>
                 <td>
                     <?php if($obj['disponible']): ?>
-                        <button class="btn-alquilar" 
-                                onclick="window.location.href='home.php?action=alquilar&id=<?= $obj['id'] ?>'">
-                            Alquilar
-                        </button>
+                        <form action="home.php" method="GET" class="form-alquilar">
+                            <input type="hidden" name="action" value="alquilar">
+                            <input type="hidden" name="id" value="<?= $obj['id'] ?>">
+                            
+                            <input type="date" name="fecha_fin" class="input-fecha" 
+                                   required min="<?= date('Y-m-d') ?>">
+                            
+                            <button type="submit" class="btn-alquilar">Alquilar</button>
+                        </form>
                     <?php else: ?>
                         <button disabled class="btn-disabled">
                             No disponible
