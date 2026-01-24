@@ -8,7 +8,7 @@
 <?php else: ?>
     <?php foreach ($anuncios as $a): ?>
         <div class="card">
-            <small style="color: #64748b; font-weight: 500;"><?= date('d/m/Y', strtotime($a['fecha_publicacion'])) ?></small>
+            <small style="color: #64748b; font-weight: 500;"><?= date('d/m/Y', strtotime($a['creado_en'])) ?></small>
             <h3 style="margin: 10px 0;"><?= htmlspecialchars($a['titulo']) ?></h3>
             <p><?= nl2br(htmlspecialchars($a['contenido'])) ?></p>
         </div>
