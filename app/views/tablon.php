@@ -8,9 +8,15 @@
 <?php else: ?>
     <?php foreach ($anuncios as $a): ?>
         <div class="card">
-            <small style="color: #64748b; font-weight: 500;"><?= date('d/m/Y', strtotime($a['creado_en'])) ?></small>
-            <h3 style="margin: 10px 0;"><?= htmlspecialchars($a['titulo']) ?></h3>
-            <p><?= nl2br(htmlspecialchars($a['contenido'])) ?></p>
+            <small class="anuncio-fecha">
+                <?= date('d/m/Y', strtotime($a['creado_en'])) ?>
+            </small>
+            <h3 class="anuncio-titulo">
+                <?= htmlspecialchars($a['titulo']) ?>
+            </h3>
+            <p class="anuncio-contenido">
+                <?= htmlspecialchars($a['contenido']) ?>
+            </p>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>

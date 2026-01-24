@@ -5,6 +5,7 @@
     <title>Comunidad</title>
     <link rel="stylesheet" href="public/css/home.css">
     <link rel="stylesheet" href="public/css/objetos.css">
+    <link rel="stylesheet" href="public/css/anuncios.css">
 </head>
 <body class="pagina-<?= $seccion ?>">
 
