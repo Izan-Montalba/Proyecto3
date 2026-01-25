@@ -1,0 +1,161 @@
+:root {
+    --primary: #6366f1;       
+    --sidebar-bg: #475569;    
+    --body-bg: #f8fafc;       
+    --white: #ffffff;
+    --text-main: #1e293b;     
+    --text-muted: #cbd5e1;    
+    --transition: 0.3s ease;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--body-bg);
+    color: var(--text-main);
+}
+
+
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+
+.sidebar .menu-links {
+    flex: 1; 
+}
+
+.sidebar button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.sidebar button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    transform: translateX(4px);
+}
+
+
+.pagina-tablon .btn-tablon,
+.pagina-calendario .btn-calendario,
+.pagina-objetos .btn-objetos,
+.pagina-chat .btn-chat {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+
+.logout-container {
+    margin-top: auto; 
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-link {
+    display: block;
+    text-decoration: none;
+    color: #fca5a5; 
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.logout-link:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+}
+
+
+.content {
+    flex: 1;
+    padding: 40px 60px;
+    overflow-y: auto;
+}
+
+.content h1 {
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: var(--text-main);
+}
+
+
+.card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+
+.chat-container {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 12px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    outline: none;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--primary);
+}
