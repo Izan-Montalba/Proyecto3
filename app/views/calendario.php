@@ -1,13 +1,26 @@
-<h1>📅 Calendario Comunitario</h1>
-<div class="card">
-    <h3>Próximos Eventos</h3>
-    <p>Consulta las fechas de las juntas, mantenimientos y actividades.</p>
-    <div style="margin-top: 20px; border-left: 4px solid var(--primary); padding-left: 15px;">
-        <p><strong>25 de Enero:</strong> Junta General Ordinaria</p>
-        <p><small>Lugar: Sala de juntas (Planta -1)</small></p>
-    </div>
-    <div style="margin-top: 20px; border-left: 4px solid #f59e0b; padding-left: 15px;">
-        <p><strong>28 de Enero:</strong> Limpieza de garajes</p>
-        <p><small>Nota: Retirar vehículos antes de las 08:00h</small></p>
-    </div>
+<link rel="stylesheet" href="public/css/calendario.css">
+
+<h1>📅 Calendario de la Comunidad</h1>
+<p>Próximos eventos y fechas importantes.</p>
+
+<div class="timeline">
+    <?php if (empty($eventos)): ?>
+        <div class="card">
+            <p>No hay eventos programados próximamente.</p>
+        </div>
+    <?php else: ?>
+        <?php foreach ($eventos as $e): ?>
+            <div class="timeline-item <?= htmlspecialchars($e['tipo']) ?>">
+                <div class="timeline-date">
+                    <span class="day"><?= date('d', strtotime($e['fecha'])) ?></span>
+                    <span class="month"><?= date('M', strtotime($e['fecha'])) ?></span>
+                </div>
+                <div class="timeline-content card">
+                    <span class="badge"><?= ucfirst($e['tipo']) ?></span>
+                    <h3><?= htmlspecialchars($e['titulo']) ?></h3>
+                    <p><?= htmlspecialchars($e['descripcion']) ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>

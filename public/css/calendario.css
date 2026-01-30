@@ -1,0 +1,59 @@
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.timeline-date {
+    min-width: 60px;
+    text-align: center;
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+.timeline-date .day {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.timeline-date .month {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.timeline-content {
+    flex-grow: 1;
+    margin-bottom: 0 !important;
+}
+
+.timeline-content h3 {
+    margin: 5px 0;
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.reunion .badge { 
+    background: #fee2e2; color: #ef4444; 
+}
+
+.mantenimiento .badge { 
+    background: #fef3c7; color: #f59e0b; 
+}
+.social .badge { 
+    background: #dcfce7; color: #10b981; 
+}

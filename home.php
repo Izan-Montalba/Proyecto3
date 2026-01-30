@@ -34,6 +34,10 @@ if ($seccion === 'tablon') {
 } elseif ($seccion === 'objetos') {
     $modelo = new Objeto($db);
     $datosObjetos = $modelo->listarTodos();
+}elseif ($seccion === 'calendario') {
+    require_once 'app/models/Evento.php';
+    $modelo = new Evento($db);
+    $eventos = $modelo->listarEventos();
 }
 
 require_once 'app/views/home_view.php';
