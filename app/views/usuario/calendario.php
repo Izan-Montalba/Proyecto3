@@ -16,7 +16,7 @@
                     <span class="month"><?= date('M', strtotime($e['fecha'])) ?></span>
                 </div>
                 <div class="timeline-content card">
-                    <span class="badge"><?= ucfirst($e['tipo']) ?></span>
+                    <span class="badge"><?= $e['tipo'] ?></span>
                     <h3><?= htmlspecialchars($e['titulo']) ?></h3>
                     <p><?= htmlspecialchars($e['descripcion']) ?></p>
                 </div>

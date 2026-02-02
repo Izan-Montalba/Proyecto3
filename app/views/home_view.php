@@ -27,7 +27,7 @@
 </nav>
 
 <div class="content">
-    <?php include $seccion . ".php"; ?>
+    <?php include "usuario/".$seccion . ".php"; ?>
 </div>
 
 </body>
