@@ -1,0 +1,79 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;         /* Coloca mensajes arriba y formulario abajo */
+    height: 70vh;                   /* 70% de la altura de la pantalla (importante para que haya scroll) */
+    padding: 0;
+    overflow: hidden;               /* Evita que los bordes del chat se desborden */
+}
+
+.chat-messages {
+    flex-grow: 1;           /* Esta caja se estira para ocupar todo el espacio libre */
+    overflow-y: auto;       /* ACTIVA EL SCROLL: Si hay muchos mensajes, aparece la barra */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Los mensajes se apilan uno debajo de otro */
+    gap: 15px;              /* Espacio constante entre cada mensaje */
+    background: #f8fafc;    /* Un gris muy suave para que resalten las burbujas */
+}
+
+.message {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.message.mine { align-self: flex-end; }   /* Tus mensajes a la derecha */
+.message.others { align-self: flex-start; } /* Los de tus vecinos a la izquierda */
+
+.message-info {
+    font-size: 0.75rem;    /* Tamaño pequeño para que sea secundario */
+    margin-bottom: 4px;    /* Separación con el texto del mensaje */
+    color: #64748b;        /* Color gris azulado para no distraer */
+}
+
+.message-bubble {
+    padding: 10px 15px;    /* Espaciado interno del texto */
+    border-radius: 18px;   /* Bordes muy redondeados para estilo moderno */
+    font-size: 0.95rem;    /* Tamaño de lectura cómodo */
+    line-height: 1.4;      /* Altura de línea para que el texto no esté pegado */
+}
+
+.mine .message-bubble {
+    background: var(--primary);     /* Color principal de la aplicación */
+    color: white;                   /* Texto en blanco para contrastar con el azul */
+    border-bottom-right-radius: 4px; /* Punta de la burbuja que indica que es mío */
+}
+
+.others .message-bubble {
+    background: #e2e8f0;            /* Gris claro para diferenciar de mis mensajes */
+    color: #1e293b;                 /* Texto oscuro para buena legibilidad */
+    border-bottom-left-radius: 4px;  /* Punta de la burbuja que indica que es del vecino */
+}
+
+.chat-input-area {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #e2e8f0;  /* Separación visual con la lista de mensajes */
+    display: flex;                  /* Alinea el input y el botón en la misma línea */
+    gap: 10px;                      /* Espacio entre el input y el botón */
+}
+
+
+.chat-input-area input {
+    flex-grow: 1;           /* Hace que el input ocupe todo el ancho disponible */
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;    /* Bordes redondeados a juego con el chat */
+    outline: none;          /* Quita el resalte azul por defecto del navegador */
+}
+
+
+.btn-send {
+    background: var(--primary);   
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;               
+}

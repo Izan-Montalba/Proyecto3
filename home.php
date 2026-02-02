@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 require_once 'config/database.php';
 require_once 'app/models/Anuncio.php';
 require_once 'app/models/Objeto.php'; 
+require_once 'app/models/Chat.php';
 
 session_start();
 $db = conectar();
@@ -25,6 +26,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'alquilar' && isset($_GET['id'
     exit();
 }
 
+// Acción de enviar
+if (isset($_GET['action']) && $_GET['action'] === 'enviar_mensaje' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $chat = new Chat($db);
+    $chat->enviar($_SESSION['usuario_id'], $_POST['mensaje']);
+    header("Location: home.php?seccion=chat");
+    exit();
+}
+
 $seccion = $_GET['seccion'] ?? 'tablon';
 
 // Carga de datos según sección
@@ -38,6 +47,9 @@ if ($seccion === 'tablon') {
     require_once 'app/models/Evento.php';
     $modelo = new Evento($db);
     $eventos = $modelo->listarEventos();
+}elseif ($seccion === 'chat') {
+    $chat = new Chat($db);
+    $mensajes = $chat->obtenerMensajes();
 }
 
 require_once 'app/views/home_view.php';

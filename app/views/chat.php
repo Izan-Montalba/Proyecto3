@@ -1,22 +1,27 @@
-<h1>💬 Chat de Vecinos</h1>
-<div class="card chat-container">
-    <div class="chat-messages">
-        <div style="margin-bottom: 15px;">
-            <strong style="color: var(--primary);">Portería:</strong>
-            <div style="background: white; padding: 10px; border-radius: 10px; display: inline-block; margin-top: 5px; border: 1px solid #e2e8f0;">
-                Hola a todos, se han encontrado unas llaves en el portal.
+<h1>💬 Chat de la Comunidad</h1>
+<p>Habla con tus vecinos en tiempo real.</p>
+
+<div class="chat-container card">
+    <div class="chat-messages" id="chatBox">
+        <?php foreach ($mensajes as $m): 
+            $esMio = ($m['usuario_id'] == $_SESSION['usuario_id']); 
+        ?>
+            <div class="message <?= $esMio ? 'mine' : 'others' ?>">
+                <div class="message-info">
+                    <strong><?= htmlspecialchars($m['nombre']) ?></strong>
+                    <span><?= date('H:i', strtotime($m['enviado_en'])) ?></span>
+                </div>
+                <div class="message-bubble">
+                    <?= htmlspecialchars($m['mensaje']) ?>
+                </div>
             </div>
-        </div>
-        <div style="margin-bottom: 15px; text-align: right;">
-            <strong style="color: #475569;">Tú:</strong>
-            <div style="background: #e0e7ff; padding: 10px; border-radius: 10px; display: inline-block; margin-top: 5px; border: 1px solid #c7d2fe;">
-                ¿Son unas con llavero azul?
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-    
-    <div class="chat-input-area">
-        <input type="text" placeholder="Escribe un mensaje aquí...">
-        <button style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 600;">Enviar</button>
-    </div>
+
+    <form action="home.php?action=enviar_mensaje" method="POST" class="chat-input-area">
+        <input type="text" name="mensaje" placeholder="Escribe un mensaje..." required autocomplete="off">
+        <button type="submit" class="btn-send">
+            <span>Enviar</span>
+        </button>
+    </form>
 </div>
