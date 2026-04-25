@@ -25,3 +25,18 @@
         </button>
     </form>
 </div>
+
+<script>
+    function bajarChat() {
+        const chatBox = document.getElementById('chatBox');
+        if (chatBox) {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    }
+
+    // Ejecutar cuando el DOM esté listo
+    document.addEventListener("DOMContentLoaded", bajarChat);
+
+    // Por si acaso las imágenes o estilos tardan, ejecutar al cargar todo
+    window.addEventListener("load", bajarChat);
+</script>

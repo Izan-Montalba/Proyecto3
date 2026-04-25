@@ -77,3 +77,7 @@
     border-radius: 10px;
     cursor: pointer;               
 }
+
+.chat-messages {
+    scroll-behavior: smooth; /* Esto hará que el scroll se mueva suavemente en lugar de saltar de golpe */
+}

@@ -5,6 +5,7 @@ require_once 'config/database.php';
 require_once 'app/models/Anuncio.php';
 require_once 'app/models/Objeto.php'; 
 require_once 'app/models/Chat.php';
+require_once 'app/models/Evento.php';
 
 session_start();
 $db = conectar();
@@ -37,19 +38,40 @@ if (isset($_GET['action']) && $_GET['action'] === 'enviar_mensaje' && $_SERVER['
 $seccion = $_GET['seccion'] ?? 'tablon';
 
 // Carga de datos según sección
-if ($seccion === 'tablon') {
-    $modelo = new Anuncio($db);
-    $anuncios = $modelo->listarTodos();
-} elseif ($seccion === 'objetos') {
-    $modelo = new Objeto($db);
-    $datosObjetos = $modelo->listarTodos();
-}elseif ($seccion === 'calendario') {
-    require_once 'app/models/Evento.php';
-    $modelo = new Evento($db);
-    $eventos = $modelo->listarEventos();
-}elseif ($seccion === 'chat') {
-    $chat = new Chat($db);
-    $mensajes = $chat->obtenerMensajes();
+// if ($seccion === 'tablon') {
+//     $modelo = new Anuncio($db);
+//     $anuncios = $modelo->listarTodos();
+// } elseif ($seccion === 'objetos') {
+//     $modelo = new Objeto($db);
+//     $datosObjetos = $modelo->listarTodos();
+// }elseif ($seccion === 'calendario') {
+//     $modelo = new Evento($db);
+//     $eventos = $modelo->listarEventos();
+// }elseif ($seccion === 'chat') {
+//     $chat = new Chat($db);
+//     $mensajes = $chat->obtenerMensajes();
+// }
+
+switch ($seccion) {
+    case 'tablon':
+        $modelo = new Anuncio($db);
+        $anuncios = $modelo->listarTodos();
+        break;
+    
+    case 'objetos':
+        $modelo = new Objeto($db);
+        $datosObjetos = $modelo->listarTodos();
+        break;
+    
+    case 'calendario':
+        $modelo = new Evento($db);
+        $eventos = $modelo->listarEventos();
+        break;
+
+    case 'chat':
+        $chat = new Chat($db);
+        $mensajes = $chat->obtenerMensajes();
+        break;
 }
 
 require_once 'app/views/home_view.php';

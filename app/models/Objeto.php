@@ -28,4 +28,30 @@ class Objeto {
             return false;
         }
     }
+
+    public function buscarPorId($id) {
+        $stmt = $this->db->prepare("SELECT * FROM objetos WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function crear($nombre, $descripcion) {
+        $stmt = $this->db->prepare("INSERT INTO objetos (nombre, descripcion, disponible) VALUES (?, ?, true)");
+        return $stmt->execute([$nombre, $descripcion]);
+    }
+
+    public function actualizar($id, $nombre, $descripcion) {
+        $stmt = $this->db->prepare("UPDATE objetos SET nombre = ?, descripcion = ? WHERE id = ?");
+        return $stmt->execute([$nombre, $descripcion, $id]);
+    }
+
+    public function eliminar($id) {
+        $stmt = $this->db->prepare("DELETE FROM objetos WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public function actualizarEstado($id, $estado) {
+    $stmt = $this->db->prepare("UPDATE objetos SET disponible = $estado WHERE id = ?");
+    return $stmt->execute([$id]);
+}
 }

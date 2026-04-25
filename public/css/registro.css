@@ -1,0 +1,113 @@
+.registro-screen {
+    background-color: var(--body-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.registro-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 20px;
+}
+
+.registro-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.registro-header h2 {
+    color: var(--text-main);
+    font-size: 1.75rem;
+    margin: 0 0 8px 0;
+}
+
+.registro-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+/* Fila doble para Piso y Puerta */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* Inputs generales */
+.registro-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fcfcfc;
+    transition: var(--transition);
+    box-sizing: border-box; /* Crucial para que el padding no ensanche el input */
+}
+
+.registro-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Botón de envío */
+.btn-registro {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 15px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.btn-registro:hover {
+    background-color: #4f46e5;
+    transform: translateY(-1px);
+}
+
+/* Enlace inferior */
+.footer-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.footer-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}

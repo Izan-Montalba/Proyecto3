@@ -23,7 +23,12 @@
         <p style="color: red; text-align: center; margin-top: 10px;"><?php echo $error; ?></p>
     <?php endif; ?>
 
-    <p class="info">¿No tienes cuenta? Solicita acceso a la comunidad</p>
+    <p class="info">
+    ¿No tienes cuenta? 
+    <a href="index.php?action=registro" style="color: #007bff; text-decoration: none; font-weight: bold;">
+        Solicita acceso a la comunidad aquí
+    </a>
+</p>
   </div>
 </body>
 </html>
