@@ -14,7 +14,7 @@ class AuthController {
         }
     }
 
-    private function procesarRegistro() {
+   /* private function procesarRegistro() {
         $nombre = $_POST['nombre'];
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -31,7 +31,37 @@ class AuthController {
             $error = "Error al registrarse.";
             require_once './app/views/registro.php';
         }
+    }*/
+
+    // app/controllers/AuthController.php
+
+private function procesarRegistro() {
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $piso = $_POST['piso'];
+    $puerta = $_POST['puerta'];
+
+    $db = conectar();
+    $modelo = new Usuario($db);
+    
+    if ($modelo->registrar($nombre, $email, $password, $piso, $puerta)) {
+        require_once './app/models/Notificador.php';
+        $notificador = new Notificador();
+        
+        $emailAdmin = $modelo->obtenerEmailAdmin(); 
+        
+        if ($emailAdmin) {
+            $notificador->avisarRegistroAdmin($emailAdmin, $nombre, $piso, $puerta);
+        }
+
+        $mensaje = "Registro enviado. El administrador debe aprobar tu cuenta.";
+        require_once './app/views/login.php';
+    } else {
+        $error = "Error al registrarse.";
+        require_once './app/views/registro.php';
     }
+}
 
     private function procesarLogin() {
         $email = $_POST['email'] ?? '';

@@ -39,5 +39,22 @@ class Usuario {
     public function eliminar($id) {
     $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = ?");
     return $stmt->execute([$id]);
-}
+    }
+
+    // Mailer
+    // app/models/Usuario.php
+
+    public function obtenerEmailAdmin() {
+        $sql = "SELECT email FROM usuarios WHERE rol = 'admin' LIMIT 1";
+        $stmt = $this->db->query($sql);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['email'] : null;
+    }
+
+    public function obtenerPorId($id) {
+        $sql = "SELECT nombre, email FROM usuarios WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
