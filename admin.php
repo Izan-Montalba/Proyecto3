@@ -2,10 +2,12 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 require_once 'config/database.php';
 require_once 'app/models/Usuario.php';
 require_once 'app/models/Anuncio.php';
 require_once 'app/models/Objeto.php';
+require_once 'app/models/Notificador.php'; // Cargamos el notificador
 
 session_start();
 
@@ -18,18 +20,37 @@ $db = conectar();
 $modeloUsuario = new Usuario($db);
 $modeloAnuncio = new Anuncio($db);
 $modeloObjeto = new Objeto($db);
+$notificador = new Notificador(); // Instanciamos el notificador
 
 // --- ACCIONES ---
 $action = $_GET['action'] ?? null;
 $id = $_GET['id'] ?? null;
 
+// Acción: Aprobar Vecino
 if ($action === 'aprobar' && $id) {
-    $modeloUsuario->actualizarEstado($id, 'aprobado');
-    header("Location: admin.php?seccion=validar"); exit();
+    // 1. Buscamos los datos del vecino antes de cambiar nada para tener su email
+    $vecino = $modeloUsuario->obtenerPorId($id);
+    
+    if ($modeloUsuario->actualizarEstado($id, 'aprobado')) {
+        // 2. Si se actualizó bien, enviamos correo de bienvenida
+        if ($vecino) {
+            $notificador->avisarResultadoVecino($vecino['email'], $vecino['nombre'], true);
+        }
+        header("Location: admin.php?seccion=validar&res=aprobado"); exit();
+    }
 } 
+// Acción: Rechazar Vecino
 elseif ($action === 'rechazar' && $id) {
-    $modeloUsuario->eliminar($id);
-    header("Location: admin.php?seccion=validar"); exit();
+    // 1. Buscamos los datos antes de borrarlo de la base de datos
+    $vecino = $modeloUsuario->obtenerPorId($id);
+    
+    if ($modeloUsuario->eliminar($id)) {
+        // 2. Avisamos al correo del vecino que ha sido rechazado
+        if ($vecino) {
+            $notificador->avisarResultadoVecino($vecino['email'], $vecino['nombre'], false);
+        }
+        header("Location: admin.php?seccion=validar&res=rechazado"); exit();
+    }
 }
 
 // Eliminar Anuncio
@@ -53,11 +74,8 @@ if ($action === 'guardar_anuncio' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($action === 'toggle_estado' && $id) {
-    // Obtenemos el objeto actual para saber su estado
     $obj = $modeloObjeto->buscarPorId($id);
-    // Invertimos el valor de disponible (si es true pasa a false, y viceversa)
     $nuevoEstado = $obj['disponible'] ? 'false' : 'true';
-    
     $modeloObjeto->actualizarEstado($id, $nuevoEstado);
     header("Location: admin.php?seccion=objetos"); exit();
 }
@@ -84,13 +102,14 @@ if ($seccion === 'validar') {
     $pendientes = $modeloUsuario->obtenerPendientes();
 } elseif ($seccion === 'anuncios') {
     $anuncios = $modeloAnuncio->listarTodos();
-    // Si venimos de dar clic a "Editar", cargamos el anuncio en el formulario
     if (isset($_GET['edit_id'])) {
         $anuncioEditar = $modeloAnuncio->buscarPorId($_GET['edit_id']);
     }
-}elseif ($seccion === 'objetos') {
+} elseif ($seccion === 'objetos') {
     $objetos = $modeloObjeto->listarTodos();
-    if (isset($_GET['edit_id'])) $objetoEditar = $modeloObjeto->buscarPorId($_GET['edit_id']);
+    if (isset($_GET['edit_id'])) {
+        $objetoEditar = $modeloObjeto->buscarPorId($_GET['edit_id']);
+    }
 }
 
 require_once './app/views/admin_view.php';

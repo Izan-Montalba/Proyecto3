@@ -12,6 +12,7 @@ class Notificador {
 
     public function __construct() {
         $this->mail = new PHPMailer(true);
+        $this->mail->SMTPDebug = 2;
         $this->mail->isSMTP();
         $this->mail->Host       = 'smtp.gmail.com';
         $this->mail->SMTPAuth   = true;

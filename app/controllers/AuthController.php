@@ -46,13 +46,15 @@ private function procesarRegistro() {
     $modelo = new Usuario($db);
     
     if ($modelo->registrar($nombre, $email, $password, $piso, $puerta)) {
-        require_once './app/models/Notificador.php';
-        $notificador = new Notificador();
         
-        $emailAdmin = $modelo->obtenerEmailAdmin(); 
-        
-        if ($emailAdmin) {
-            $notificador->avisarRegistroAdmin($emailAdmin, $nombre, $piso, $puerta);
+        try {
+            require_once './app/models/Notificador.php';
+            $notificador = new Notificador();
+            $emailAdmin = $modelo->obtenerEmailAdmin();
+            if ($emailAdmin) {
+                $notificador->avisarRegistroAdmin($emailAdmin, $nombre, $piso, $puerta);
+            }
+        } catch (Exception $e) {
         }
 
         $mensaje = "Registro enviado. El administrador debe aprobar tu cuenta.";
