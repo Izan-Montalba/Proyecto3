@@ -1,7 +1,9 @@
 <?php
-require_once '../../lib/PHPMailer/Exception.php';
-require_once '../../lib/PHPMailer/PHPMailer.php';
-require_once '../../lib/PHPMailer/SMTP.php';
+$base = realpath(__DIR__ . '/../../'); 
+
+require_once $base . '/lib/PHPMailer/Exception.php';
+require_once $base . '/lib/PHPMailer/PHPMailer.php';
+require_once $base . '/lib/PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,7 +13,6 @@ class Notificador {
 
     public function __construct() {
         $this->mail = new PHPMailer(true);
-        $this->mail->SMTPDebug = 2;
         $this->mail->isSMTP();
         $this->mail->Host       = 'smtp.gmail.com';
         $this->mail->SMTPAuth   = true;
