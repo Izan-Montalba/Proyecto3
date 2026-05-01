@@ -19,6 +19,7 @@
         <button onclick="window.location.href='admin.php?seccion=validar'">👥 Validar Vecinos</button>
         <button onclick="window.location.href='admin.php?seccion=anuncios'">📢 Moderar Anuncios</button>
         <button onclick="window.location.href='admin.php?seccion=objetos'">🛠️ Inventario Común</button>
+        <button onclick="window.location.href='admin.php?seccion=historial'">📋 Historial Préstamos</button>
     </div>
 
     <div class="logout-container">

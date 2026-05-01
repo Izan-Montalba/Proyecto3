@@ -7,7 +7,6 @@ class Objeto {
     }
 
     public function listarTodos() {
-    // Esta consulta busca el objeto y le pega la última fecha_fin que encuentre en reservas
     $sql = "SELECT o.*, 
             (SELECT r.fecha_fin FROM reservas r WHERE r.objeto_id = o.id ORDER BY r.id DESC LIMIT 1) as fecha_fin
             FROM objetos o 
@@ -58,5 +57,15 @@ class Objeto {
     public function actualizarEstado($id, $estado) {
     $stmt = $this->db->prepare("UPDATE objetos SET disponible = $estado WHERE id = ?");
     return $stmt->execute([$id]);
+}
+
+public function listarHistorialCompleto() {
+    $sql = "SELECT r.id, o.nombre as objeto_nombre, u.nombre as usuario_nombre, 
+                   r.fecha_inicio, r.fecha_fin, o.disponible
+            FROM reservas r
+            JOIN objetos o ON r.objeto_id = o.id
+            JOIN usuarios u ON r.usuario_id = u.id
+            ORDER BY r.fecha_inicio DESC";
+    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 }
