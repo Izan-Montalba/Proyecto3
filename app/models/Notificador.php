@@ -1,8 +1,8 @@
 <?php
 // Usamos __DIR__ para que la ruta sea absoluta desde la ubicación de este archivo
-require_once __DIR__ . '/../lib/PHPMailer/src/Exception.php';
-require_once __DIR__ . '/../lib/PHPMailer/src/PHPMailer.php';
-require_once __DIR__ . '/../lib/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/../lib/PHPMailer/Exception.php';
+require_once __DIR__ . '/../lib/PHPMailer/PHPMailer.php';
+require_once __DIR__ . '/../lib/PHPMailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
