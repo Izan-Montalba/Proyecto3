@@ -68,4 +68,29 @@ public function listarHistorialCompleto() {
             ORDER BY r.fecha_inicio DESC";
     return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function listarHistorialFiltrado($vecino = '', $objeto = '') {
+    $sql = "SELECT r.id, o.nombre as objeto_nombre, u.nombre as usuario_nombre, 
+                   r.fecha_inicio, r.fecha_fin, o.disponible
+            FROM reservas r
+            JOIN objetos o ON r.objeto_id = o.id
+            JOIN usuarios u ON r.usuario_id = u.id 
+            WHERE 1=1";
+    
+    $params = [];
+    if (!empty($vecino)) {
+        $sql .= " AND u.nombre ILIKE ?";
+        $params[] = "%$vecino%";
+    }
+    if (!empty($objeto)) {
+        $sql .= " AND o.nombre ILIKE ?";
+        $params[] = "%$objeto%";
+    }
+
+    $sql .= " ORDER BY r.fecha_inicio DESC";
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

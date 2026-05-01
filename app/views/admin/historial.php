@@ -1,55 +1,49 @@
 <div class="admin-header">
     <h1>📋 Historial de Préstamos</h1>
-    <p>Consulta todos los alquileres realizados por los vecinos y su estado actual.</p>
 </div>
 
-<div class="admin-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-    <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+<div class="card" style="margin-bottom: 20px; padding: 15px;">
+    <form action="admin.php" method="GET" style="display: flex; gap: 10px;">
+        <input type="hidden" name="seccion" value="historial">
+        
+        <input type="text" name="vecino" placeholder="Vecino..." 
+               value="<?= htmlspecialchars($_GET['vecino'] ?? '') ?>">
+        
+        <input type="text" name="objeto" placeholder="Producto..." 
+               value="<?= htmlspecialchars($_GET['objeto'] ?? '') ?>">
+        
+        <button type="submit" class="btn-admin">🔍 Filtrar</button>
+        <a href="admin.php?seccion=historial" class="btn-admin" style="background:#6c757d; text-decoration:none;">Limpiar</a>
+    </form>
+</div>
+
+<div class="admin-card">
+    <table class="admin-table">
         <thead>
-            <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
-                <th style="padding: 12px; text-align: left;">Vecino</th>
-                <th style="padding: 12px; text-align: left;">Objeto</th>
-                <th style="padding: 12px; text-align: left;">Desde</th>
-                <th style="padding: 12px; text-align: left;">Hasta</th>
-                <th style="padding: 12px; text-align: left;">Estado</th>
+            <tr>
+                <th>Vecino</th>
+                <th>Objeto</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($historial)): ?>
+            <?php foreach ($historial as $h): ?>
                 <tr>
-                    <td colspan="5" style="padding: 20px; text-align: center; color: #666;">
-                        No hay registros de alquileres en el historial.
-                    </td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($historial as $h): 
-                    $hoy = date('Y-m-d');
-                    // Si la fecha de fin es menor que hoy y el objeto no está disponible, está fuera de plazo
-                    $vencido = ($h['fecha_fin'] < $hoy && !$h['disponible']);
-                ?>
-                <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 12px;"><strong><?= htmlspecialchars($h['usuario_nombre']) ?></strong></td>
-                    <td style="padding: 12px;"><?= htmlspecialchars($h['objeto_nombre']) ?></td>
-                    <td style="padding: 12px;"><?= date('d/m/Y', strtotime($h['fecha_inicio'])) ?></td>
-                    <td style="padding: 12px;"><?= date('d/m/Y', strtotime($h['fecha_fin'])) ?></td>
-                    <td style="padding: 12px;">
-                        <?php if ($vencido): ?>
-                            <span style="color: #721c24; background: #f8d7da; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold;">
-                                ⚠️ Retrasado
-                            </span>
-                        <?php elseif (!$h['disponible']): ?>
-                            <span style="color: #856404; background: #fff3cd; padding: 4px 8px; border-radius: 4px; font-size: 0.85em;">
-                                ⏳ En uso
-                            </span>
+                    <td><strong><?= htmlspecialchars($h['usuario_nombre']) ?></strong></td>
+                    <td><?= htmlspecialchars($h['objeto_nombre']) ?></td>
+                    <td><?= date('d/m/Y', strtotime($h['fecha_inicio'])) ?></td>
+                    <td><?= date('d/m/Y', strtotime($h['fecha_fin'])) ?></td>
+                    <td>
+                        <?php if ($h['disponible']): ?>
+                            <span class="status-badge status-disponible">Devuelto</span>
                         <?php else: ?>
-                            <span style="color: #155724; background: #d4edda; padding: 4px 8px; border-radius: 4px; font-size: 0.85em;">
-                                ✅ Devuelto
-                            </span>
+                            <span class="status-badge status-prestado">En uso</span>
                         <?php endif; ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>

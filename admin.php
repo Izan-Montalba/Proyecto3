@@ -108,16 +108,13 @@ switch ($seccion) {
             $objetoEditar = $modeloObjeto->buscarPorId($_GET['edit_id']);
         }
         break;
-
     case 'historial':
-        $sqlHistorial = "SELECT r.id, o.nombre as objeto_nombre, u.nombre as usuario_nombre, 
-                                r.fecha_inicio, r.fecha_fin, o.disponible
-                         FROM reservas r
-                         JOIN objetos o ON r.objeto_id = o.id
-                         JOIN usuarios u ON r.usuario_id = u.id
-                         ORDER BY r.fecha_inicio DESC";
-        $historial = $db->query($sqlHistorial)->fetchAll(PDO::FETCH_ASSOC);
-        break;
+    $filtroVecino = $_GET['vecino'] ?? '';
+    $filtroObjeto = $_GET['objeto'] ?? '';
+    
+
+    $historial = $modeloObjeto->listarHistorialFiltrado($filtroVecino, $filtroObjeto);
+    break;;
 }
 
 require_once './app/views/admin_view.php';
