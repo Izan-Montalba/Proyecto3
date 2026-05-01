@@ -26,8 +26,13 @@
                     <?php if($obj['disponible']): ?>
                         <span class="status-disponible">● Disponible</span>
                     <?php else: ?>
-                        <span class="status-prestado">● Prestado</span>
-                    <?php endif; ?>
+    <span class="status-prestado">● Prestado</span>
+    <?php if(!empty($obj['fecha_fin'])): ?>
+        <div style="margin-top: 5px; font-size: 0.85em; color: #d9534f; font-weight: bold;">
+            Hasta: <?= date('d/m/Y', strtotime($obj['fecha_fin'])) ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
                 </td>
                 <td>
                     <?php if($obj['disponible']): ?>

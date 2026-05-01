@@ -7,9 +7,14 @@ class Objeto {
     }
 
     public function listarTodos() {
-        $sql = "SELECT * FROM objetos ORDER BY nombre ASC";
-        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // Esta consulta busca el objeto y le pega la última fecha_fin que encuentre en reservas
+    $sql = "SELECT o.*, 
+            (SELECT r.fecha_fin FROM reservas r WHERE r.objeto_id = o.id ORDER BY r.id DESC LIMIT 1) as fecha_fin
+            FROM objetos o 
+            ORDER BY o.nombre ASC";
+    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
+    
 
     public function alquilar($objeto_id, $usuario_id, $fecha_fin) {
         try {
