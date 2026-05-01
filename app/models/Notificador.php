@@ -1,7 +1,8 @@
 <?php
-require_once '../../lib/PHPMailer/Exception.php';
-require_once '../../lib/PHPMailer/PHPMailer.php';
-require_once '../../lib/PHPMailer/SMTP.php';
+// Usamos __DIR__ para que la ruta sea absoluta desde la ubicación de este archivo
+require_once __DIR__ . '/../../lib/PHPMailer/src/Exception.php';
+require_once __DIR__ . '/../../lib/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../../lib/PHPMailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -32,7 +33,7 @@ class Notificador {
             $this->mail->Subject = 'Nueva solicitud: ' . $nombreVecino;
             $this->mail->Body = "
                 <div style='font-family: sans-serif; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px;'>
-                    <h2 style='color: #6366f1;'>Nueva solicitud de acceso</h2>
+                    <h2 style='color: #1a68d1;'>Nueva solicitud de acceso</h2>
                     <p>Un nuevo vecino se ha registrado y está esperando validación:</p>
                     <ul>
                         <li><b>Nombre:</b> $nombreVecino</li>
