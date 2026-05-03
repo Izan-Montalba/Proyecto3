@@ -94,3 +94,51 @@
     align-items: center;
     gap: 8px;
 }
+
+
+@media (max-width: 768px) {
+    .card {
+        padding: 10px;
+        overflow-x: auto; /* Permite deslizar solo la tabla */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabla-objetos {
+        min-width: 600px; 
+        font-size: 0.9rem;
+    }
+
+    .tabla-objetos th, 
+    .tabla-objetos td {
+        padding: 10px 8px; 
+    }
+
+    .input-fecha {
+        width: 120px; 
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+
+    .btn-alquilar {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    /* 3. Ajuste de los badges de estado */
+    .status-disponible, .status-prestado {
+        font-size: 0.8rem;
+        white-space: nowrap; 
+    }
+}
+
+@media (max-width: 480px) {
+    .tabla-objetos th:nth-child(2), 
+    .tabla-objetos td:nth-child(2) {
+        display: none; 
+    }
+    
+    .content h1 {
+        font-size: 1.4rem;
+    }
+}
