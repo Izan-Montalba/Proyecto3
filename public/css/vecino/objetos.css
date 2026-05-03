@@ -97,38 +97,47 @@
 
 
 @media (max-width: 768px) {
+    .content {
+        padding: 15px;
+        overflow-x: hidden;
+    }
+
     .card {
         padding: 10px;
-        overflow-x: auto; /* Permite deslizar solo la tabla */
+        display: block;
+        width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
     }
 
     .tabla-objetos {
-        min-width: 600px; 
-        font-size: 0.9rem;
+        min-width: 650px;
+        width: 100%;
+    }
+
+    .form-alquilar {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        min-width: 140px;
+    }
+
+    .input-fecha {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .btn-alquilar {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.85rem;
     }
 
     .tabla-objetos th, 
     .tabla-objetos td {
-        padding: 10px 8px; 
-    }
-
-    .input-fecha {
-        width: 120px; 
-        padding: 6px;
-        font-size: 0.8rem;
-    }
-
-    .btn-alquilar {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        width: 100%;
-    }
-
-    /* 3. Ajuste de los badges de estado */
-    .status-disponible, .status-prestado {
-        font-size: 0.8rem;
-        white-space: nowrap; 
+        padding: 10px 8px;
+        white-space: normal;
     }
 }
 
@@ -136,9 +145,5 @@
     .tabla-objetos th:nth-child(2), 
     .tabla-objetos td:nth-child(2) {
         display: none; 
-    }
-    
-    .content h1 {
-        font-size: 1.4rem;
     }
 }
